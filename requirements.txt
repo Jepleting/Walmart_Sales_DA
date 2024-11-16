@@ -1,2 +1,4 @@
 kaggle
 pandas
+sqlalchemy
+pyscopg2
