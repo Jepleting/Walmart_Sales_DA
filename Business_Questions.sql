@@ -7,3 +7,15 @@ from walmart
 group by payment_method
 
 --Q2. Identify the highest_rated category in each branch , displaying the branch,category and the average rating
+
+select * from
+(
+	select  
+	branch,
+	category,
+	avg(rating) as average_rating,
+	rank() over (partition by branch order by avg(rating) desc) as rank
+	from walmart
+	group by branch,category
+)
+where rank = 1
