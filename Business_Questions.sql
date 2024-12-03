@@ -19,3 +19,16 @@ select * from
 	group by branch,category
 )
 where rank = 1
+
+--Q3. Identify the busiest day for each branch based on the number of transactions
+SELECT * FROM
+(
+SELECT 
+ branch,
+ TO_CHAR(TO_DATE(date, 'DD/MM/YY'), 'Day') as day_name,
+ COUNT(*) as no_transactions,
+ RANK() OVER(PARTITION BY branch ORDER BY COUNT(*) DESC) as rank
+FROM walmart
+GROUP BY branch , day_name
+)
+WHERE rank = 1
